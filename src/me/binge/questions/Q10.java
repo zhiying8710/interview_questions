@@ -44,6 +44,18 @@ public class Q10 {
         }
         System.out.println(sb.toString());
 
+        ///////////////////////
+
+        String[] sa = s.split(" ");
+        String ns = "";
+        for (int i = sa.length - 1; i >= 0; i--) {
+            ns += sa[i];
+            if (i != 0) {
+                ns += " ";
+            }
+        }
+        System.out.println(ns);
+
     }
 
 }
