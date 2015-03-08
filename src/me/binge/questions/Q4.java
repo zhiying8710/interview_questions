@@ -3,6 +3,8 @@ package me.binge.questions;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.binge.questions.common.BSTree;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -15,78 +17,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Q4 {
 
-    static class Tree {
-
-        private Tree left;
-        private Tree right;
-        private Integer val;
-
-        public Tree getLeft() {
-            return left;
-        }
-
-        public void setLeft(Tree left) {
-            this.left = left;
-        }
-
-        public Tree getRight() {
-            return right;
-        }
-
-        public void setRight(Tree right) {
-            this.right = right;
-        }
-
-        public Integer getVal() {
-            return val;
-        }
-
-        public void setVal(Integer val) {
-            this.val = val;
-        }
-
-        public void add(Integer v) {
-            if (this.val == null) {
-                this.val = v;
-                this.left = new Tree();
-                this.right = new Tree();
-                return;
-            }
-
-            if (this.getVal() < v) {
-                this.left.add(v);
-            } else if (this.getVal() > v) {
-                this.right.add(v);
-            }
-
-        }
-
-        public void listAllPath(List<Integer> path, List<List<Integer>> paths) {
-
-            if (path == null) { //顶点
-                path = new ArrayList<Integer>();
-            } else {
-                List<Integer> path1 = new ArrayList<Integer>();
-                path1.addAll(path);
-                path = path1;
-            }
-            path.add(this.val);
-
-            if (this.left.val == null && this.right.val == null) { //叶子
-                paths.add(path);
-            } else {
-                if (this.left.val != null) {
-                    this.left.listAllPath(path, paths);
-                }
-                if (this.right.val != null) {
-                    this.right.listAllPath(path, paths);
-                }
-                path.remove(path.size() - 1);
-            }
-        }
-
-    }
-
 
     public int sum(List<Integer> is) {
         int sum = 0;
@@ -96,23 +26,23 @@ public class Q4 {
         return sum;
     }
 
-    public void getPaths(Tree tree, int n, List<Integer> path) {
+    public void getPaths(BSTree tree, int n, List<Integer> path) {
         if (path == null) { // 顶点
             path = new ArrayList<Integer>();
         }
-        path.add(tree.val);
+        path.add(tree.getVal());
         int sum = sum(path);
-        if (sum == n && tree.left.val == null && tree.right.val == null) { // 叶子节点
+        if (sum == n && tree.getLeft().getVal() == null && tree.getRight().getVal() == null) { // 叶子节点
             System.out.println(StringUtils.join(path.toArray(), ","));
         } else {
 
-            if (tree.left.val != null) {
-                getPaths(tree.left, n, path);
+            if (tree.getLeft().getVal() != null) {
+                getPaths(tree.getLeft(), n, path);
                 path.remove(path.size() - 1);
 
             }
-            if (tree.right.val != null) {
-                getPaths(tree.right, n, path);
+            if (tree.getRight().getVal() != null) {
+                getPaths(tree.getRight(), n, path);
                 path.remove(path.size() - 1);
             }
         }
@@ -123,7 +53,7 @@ public class Q4 {
 
     public static void main(String[] args) {
 
-        Tree tree = new Tree();
+        BSTree tree = new BSTree();
         tree.add(10);
         tree.add(5);
         tree.add(12);
